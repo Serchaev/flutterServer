@@ -1,5 +1,7 @@
 require("dotenv").config();
 const express = require("express");
+const positionRouter = require("./routers/positionRouter.js");
+const employeeRouter = require("./routers/employeeRouter.js");
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -10,6 +12,9 @@ app.use(cookieParser());
 app.use(cors());
 app.use(fileUpload({}));
 app.use(express.static("static"));
+
+app.use("/api/v1", positionRouter);
+app.use("/api/v1", employeeRouter);
 
 
 async function startApp() {
