@@ -24,8 +24,8 @@ class positionController {
 	}
 	async readAll(req, res, next) {
 		try {
-			const positionData = await positionModel.find();
-			return res.json(positionData);
+			// const positionData = await positionModel.find();
+			return res.json("positionData");
 
 		} catch (e) {
 			console.log(e);
