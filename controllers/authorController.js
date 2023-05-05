@@ -24,8 +24,8 @@ class authorController {
 	}
 	async readAll(req, res, next) {
 		try {
-			// const authorData = await authorModel.find();
-			return res.json("authorData");
+			const authorData = await authorModel.find();
+			return res.json(authorData);
 
 		} catch (e) {
 			console.log(e);

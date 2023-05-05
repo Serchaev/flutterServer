@@ -24,8 +24,8 @@ class postController {
 	}
 	async readAll(req, res, next) {
 		try {
-			// const postData = await postModel.find();
-			return res.json("postData");
+			const postData = await postModel.find();
+			return res.json(postData);
 
 		} catch (e) {
 			console.log(e);
