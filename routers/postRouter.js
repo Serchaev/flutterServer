@@ -1,22 +1,23 @@
 const Router = require("express");
 const controller = require("../controllers/postController");
+const authMiddleware = require("../middlewares/authMiddleware.js");
 
 const router = new Router();
 
 //создать должность
-router.post("/post", controller.create);
+router.post("/post", authMiddleware, controller.create);
 
 //список всех должностей
-router.get("/post", controller.readAll);
+router.get("/post", authMiddleware, controller.readAll);
 
 //одна должность
-router.get("/post/:id", controller.readOne);
+router.get("/post/:id", authMiddleware, controller.readOne);
 
 //изменение должности
-router.put("/post", controller.update);
+router.put("/post", authMiddleware, controller.update);
 
 //удаление должности
-router.delete("/post/:id", controller.delete);
+router.delete("/post/:id", authMiddleware, controller.delete);
 
 
 
