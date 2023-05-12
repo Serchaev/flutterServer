@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const postSchema = new Schema({
+const taskSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -11,15 +11,11 @@ const postSchema = new Schema({
     type: String,
     required: true
   },
-  dateOfCreated: {
-    type: Date,
-    default: Date.now
-  },
-  authorID: {
+  accontableID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Author',
+    ref: 'Accountable',
     required: true
   }
 });
 
-module.exports = mongoose.model('Post', postSchema);
+module.exports = mongoose.model('Task', taskSchema);

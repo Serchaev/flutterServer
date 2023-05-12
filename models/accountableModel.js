@@ -1,15 +1,15 @@
-// Author schema
+// Accountable schema
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const authorSchema = new Schema({
+const accountableSchema = new Schema({
   fullName: {
     type: String,
     required: true
   },
-  dateOfRegistration: {
-    type: Date,
-    default: Date.now
+  phone: {
+    type: Number,
+    required: true
   },
   email: {
     type: String,
@@ -18,4 +18,4 @@ const authorSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('Author', authorSchema);
+module.exports = mongoose.model('Accountable', accountableSchema);

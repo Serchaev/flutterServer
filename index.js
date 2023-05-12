@@ -2,14 +2,16 @@ require("dotenv").config();
 const express = require("express");
 const positionRouter = require("./routers/positionRouter.js");
 const employeeRouter = require("./routers/employeeRouter.js");
-const postsRouter = require("./routers/postRouter.js");
-const authorsRouter = require("./routers/authorRouter.js");
+const taskRouter = require("./routers/taskRouter.js");
+const accountableRouter = require("./routers/accountableRouter.js");
 const authRouter = require("./routers/authRouter.js");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+
 const app = express();
+
 const PORT = process.env.PORT || 8000;
 const IP_ADDRESS = process.env.IP_ADDRESS || "localhost";
 const DB_URL = process.env.DB_URL;
@@ -23,8 +25,8 @@ app.use(express.static("static"));
 app.use("/api/v1", positionRouter);
 app.use("/api/v1", employeeRouter);
 
-app.use("/api/v2", postsRouter);
-app.use("/api/v2", authorsRouter);
+app.use("/api/v2", accountableRouter);
+app.use("/api/v2", taskRouter);
 
 app.use("/auth", authRouter);
 

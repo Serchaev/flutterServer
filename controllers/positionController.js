@@ -1,4 +1,5 @@
 const positionModel = require("../models/positionModel.js");
+const employeeModel = require("../models/employeeModel.js");
 
 class positionController {
 	async create(req, res, next) {
@@ -23,9 +24,13 @@ class positionController {
 		}
 	}
 	async readAll(req, res, next) {
+		console.log(1);
 		try {
 			const positionData = await positionModel.find();
-			return res.json(positionData);
+			positionData.sort((a, b) => {
+				return a.name.localeCompare(b.name);
+			})
+			return res.json({ "positions": positionData });
 
 		} catch (e) {
 			console.log(e);
@@ -33,8 +38,10 @@ class positionController {
 		}
 	}
 	async update(req, res, next) {
+		console.log(3);
 		try {
 			const position = req.body;
+			console.log(position);
 			if (!position._id) {
 				return res.status(400).json({ message: "Id not found" });
 			}
@@ -49,9 +56,26 @@ class positionController {
 	async delete(req, res, next) {
 		try {
 			const { id } = req.params;
+			console.log("id - ", id);
 			if (!id) {
 				return res.status(400).json({ message: "Id not found" });
 			}
+			// const position = await positionModel.find(id);
+			const employees = await employeeModel.find();
+			console.log("employees - ", employees);
+			const tmp = [];
+			employees.map((e) => {
+				console.log("e - ", e);
+				if (e.positionID.toString() == id) {
+
+					console.log("e if - ", e);
+					tmp.push(e);
+				}
+			});
+			console.log("tmp - ", tmp);
+			tmp.map(async (e) => {
+				await employeeModel.findByIdAndDelete(e._id);
+			})
 			const deletedPosition = await positionModel.findByIdAndDelete(id);
 			return res.json(deletedPosition);
 		} catch (e) {

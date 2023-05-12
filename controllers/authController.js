@@ -23,7 +23,7 @@ const generateAccessToken = (id, roles) => {
 		id,
 		roles
 	}
-	const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, { expiresIn: "1h" });
+	const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, { expiresIn: "5m" });
 	const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, { expiresIn: "24h" });
 	return {
 		accessToken,
@@ -74,6 +74,7 @@ class authController {
 
 	async login(req, res, next) {
 		try {
+			console.log("INFO '/login' POST");
 			const { name, password } = req.body;
 			const user = await User.findOne({ name });
 			if (!user) {
@@ -104,8 +105,11 @@ class authController {
 	}
 
 	async refresh(req, res, next) {
+		console.log("refresh")
 		try {
+			console.log("req.body ", req.body);
 			const { refreshToken } = req.body;
+			console.log("refresh ", refreshToken);
 			if (!refreshToken) {
 				return res.status(400).json({ message: "refreshToken not found" });
 			}

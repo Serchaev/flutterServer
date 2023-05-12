@@ -3,8 +3,8 @@ const employeeModel = require("../models/employeeModel.js");
 class employeeController {
 	async create(req, res, next) {
 		try {
-			const { fullName, birthday, phone, address, positionID } = req.body;
-			const post = await employeeModel.create({ fullName: fullName, birthday: birthday, phone: phone, address: address, positionID: positionID });
+			const { fullName, phone, address, positionID } = req.body;
+			const post = await employeeModel.create({ fullName: fullName, phone: phone, address: address, positionID: positionID });
 			return res.json(post);
 		} catch (e) {
 			console.log(e);
@@ -24,9 +24,10 @@ class employeeController {
 		}
 	}
 	async readAll(req, res, next) {
+		console.log(2);
 		try {
 			const employeeData = await employeeModel.find();
-			return res.json(employeeData);
+			return res.json({ "employees": employeeData });
 		} catch (e) {
 			console.log(e);
 			return res.status(500).json(e);

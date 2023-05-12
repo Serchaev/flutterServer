@@ -13,7 +13,7 @@ const validateAccessToken = (token) => {
 module.exports = function (req, res, next) {
 	try {
 		const authorizationHeader = req.headers.authorization;
-		console.log("authorizationHeader", authorizationHeader);
+		// console.log("authorizationHeader", authorizationHeader);
 		if (!authorizationHeader) {
 			console.log("Не найден ключ авторизации в заголовках");
 			return res.status(401).json({ message: "Не найден ключ авторизации в заголовках" });

@@ -7,10 +7,6 @@ const employeeSchema = new Schema({
 		type: String,
 		required: true
 	},
-	birthday: {
-		type: Date,
-		required: true
-	},
 	phone: {
 		type: Number,
 		required: true

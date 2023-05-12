@@ -1,10 +1,10 @@
-const postModel = require("../models/postModel.js");
+const taskModel = require("../models/taskModel.js");
 
-class postController {
+class taskController {
 	async create(req, res, next) {
 		try {
-			const { name, content, authorID } = req.body;
-			const post = await postModel.create({ name: name, content: content, authorID: authorID });
+			const { name, content, accontableID } = req.body;
+			const post = await taskModel.create({ name: name, content: content, accontableID: accontableID });
 			return res.json(post);
 		} catch (e) {
 			console.log(e);
@@ -14,8 +14,8 @@ class postController {
 	async readOne(req, res, next) {
 		try {
 			const { id } = req.params;
-			const postData = await postModel.findById(id);
-			return res.json(postData);
+			const taskData = await taskModel.findById(id);
+			return res.json(taskData);
 
 		} catch (e) {
 			console.log(e);
@@ -24,8 +24,8 @@ class postController {
 	}
 	async readAll(req, res, next) {
 		try {
-			const postData = await postModel.find();
-			return res.json(postData);
+			const taskData = await taskModel.find();
+			return res.json({ "tasks": taskData });
 
 		} catch (e) {
 			console.log(e);
@@ -34,12 +34,12 @@ class postController {
 	}
 	async update(req, res, next) {
 		try {
-			const post = req.body;
-			if (!post._id) {
+			const task = req.body;
+			if (!task._id) {
 				return res.status(400).json({ message: "Id not found" });
 			}
-			const updatedPost = await postModel.findByIdAndUpdate(post._id, post, { new: true });
-			return res.json(updatedPost);
+			const updatedTask = await taskModel.findByIdAndUpdate(task._id, task, { new: true });
+			return res.json(updatedTask);
 
 		} catch (e) {
 			console.log(e);
@@ -52,8 +52,8 @@ class postController {
 			if (!id) {
 				return res.status(400).json({ message: "Id not found" });
 			}
-			const deletedPost = await postModel.findByIdAndDelete(id);
-			return res.json(deletedPost);
+			const deletedTask = await taskModel.findByIdAndDelete(id);
+			return res.json(deletedTask);
 		} catch (e) {
 			console.log(e);
 			return res.status(500).json(e);
@@ -61,4 +61,4 @@ class postController {
 	}
 }
 
-module.exports = new postController();
+module.exports = new taskController();
